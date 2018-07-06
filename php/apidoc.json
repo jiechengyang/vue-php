@@ -1,0 +1,9 @@
+{
+  "name": "VueThink接口",
+  "version": "1.0.0",
+  "description": "学习apidoc",
+  "title": "VueThink接口",
+  "url": "http://demo.tpvue.com.cn/",
+  "sampleUrl": "http://demo.tpvue.com.cn/",
+  "testScript": "apidoc -i ./ -o public/apidoc/ -f '.*/.php'"
+}
