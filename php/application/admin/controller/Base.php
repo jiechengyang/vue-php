@@ -11,13 +11,32 @@ use com\verify\HonrayVerify;
 use app\common\controller\Common;
 use think\Request;
 
+/**
+ * @apiDefine commError
+ * 
+ * @apiError (404) 404错误 地址不存在
+ *
+ * @apiErrorExample 400-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "error": "地址不存在"
+ *     }
+
+ * @apiError (500) 500错误 服务器内部错误
+ *
+ * @apiErrorExample 500-Response:
+ *     HTTP/1.1 500 Internal Server Error
+ *     {
+ *       "error": "服务器内部错误"
+ *     }
+ */
 class Base extends Common
 {
     /**
      * @api {post} admin/base/login 01用户登录
      * @apiVersion 1.0.0
      * @apiName login
-     * @apiGroup User
+     * @apiGroup Base
      *
      * @apiParam {String} username 用户名
      * @apiParam {String} password 密码
@@ -40,32 +59,7 @@ class Base extends Common
               },
               "error": ""
      *     }
-
-     * @apiError userinfoError  账户信息错误.
-     *
-     * @apiErrorExample userinfoError-Response:
-     *     HTTP/1.1 200 OK
-     *     {
-     *       "code": 400,
-     *       "data": "",
-     *       "error": "用户名或密码错误"
-     *     }
-
-     * @apiError 404错误 地址不存在
-     *
-     * @apiErrorExample 400-Response:
-     *     HTTP/1.1 404 Not Found
-     *     {
-     *       "error": "地址不存在"
-     *     }
-
-     * @apiError 500错误 服务器内部错误
-     *
-     * @apiErrorExample 500-Response:
-     *     HTTP/1.1 500 Internal Server Error
-     *     {
-     *       "error": "服务器内部错误"
-     *     }
+     *  @apiUse commError
     */
     public function login()
     {   
@@ -82,6 +76,20 @@ class Base extends Common
         return resultArray(['data' => $data]);
     }
 
+    /**
+     * @api {post} admin/base/relogin 02检验记住密码
+     * @apiVersion 1.0.0
+     * @apiName relogin
+     * @apiGroup Base
+     *
+     * @apiParam {String} rememberKey 记住密码key
+
+     * @apiSuccess {Number} code 返回码
+     * @apiSuccess {object[]} data 返回数据
+     * @apiSuccess {String} error 错误信息
+     * 
+     *  @apiUse commError
+    */
     public function relogin()
     {   
         $userModel = model('User');
@@ -98,15 +106,15 @@ class Base extends Common
     }
 
     /**
-     * @api {post} admin/base/logout 02退出登录
+     * @api {post} admin/base/logout 03退出登录
      * @apiVersion 1.0.0
      * @apiName logout
-     * @apiGroup User
+     * @apiGroup Base
      *
      * @apiParam {String} authkey 密钥
      * @apiParam {String} sessionId SESSIONID
 
-     * @apiSuccess {Number} code 返回码
+     * @apiSuccess {Number} code 返回码 200正确400错误
      * @apiSuccess {String} data 返回数据
      * @apiSuccess {String} error 错误信息
 
@@ -117,22 +125,8 @@ class Base extends Common
      *       "data": "退出成功",
              "error": ""
      *     }
-
-     * @apiError 404错误 地址不存在
      *
-     * @apiErrorExample 400-Response:
-     *     HTTP/1.1 404 Not Found
-     *     {
-     *       "error": "地址不存在"
-     *     }
-
-     * @apiError 500错误 服务器内部错误
-     *
-     * @apiErrorExample 500-Response:
-     *     HTTP/1.1 500 Internal Server Error
-     *     {
-     *       "error": "服务器内部错误"
-     *     }
+     * @apiUse commError
     */
     public function logout()
     {
@@ -141,6 +135,22 @@ class Base extends Common
         return resultArray(['data'=>'退出成功']);
     }
 
+    /**
+     * @api {post} admin/base/getConfigs 04获取配置
+     * @apiVersion 1.0.0
+     * @apiName getConfigs
+     * @apiGroup Base
+     *
+     * @apiSuccess {Number} code 返回码 200正确400错误
+     * @apiSuccess {String} data 返回数据
+     * @apiSuccess {String} data.IDENTIFYING_CODE 是否需要验证码1需要0不需要
+     * @apiSuccess {String} data.LOGIN_SESSION_VALID 会话有效期，秒为单位
+     * @apiSuccess {String} data.SYSTEM_LOGO 系统logo
+     * @apiSuccess {String} data.SYSTEM_NAME 系统名称
+     * @apiSuccess {String} error 错误信息
+     *
+     * @apiUse commError
+     */
     public function getConfigs()
     {
         $systemConfig = cache('DB_CONFIG_DATA'); 
@@ -153,12 +163,40 @@ class Base extends Common
         return resultArray(['data' => $systemConfig]);
     }
 
+    /**
+     * @api {post} admin/base/getVerify 05验证码
+     * @apiVersion 1.0.0
+     * @apiName getVerify
+     * @apiGroup Base
+     *
+     * @apiSuccess {Number} code 返回码 200正确400错误
+     * @apiSuccess {String} data 返回数据
+     * @apiSuccess {String} error 错误信息
+     *
+     * @apiUse commError
+     */
     public function getVerify()
     {
         $captcha = new HonrayVerify(config('captcha'));
         return $captcha->entry();
     }
 
+    /**
+     * @api {post} admin/base/setInfo 05修改密码
+     * @apiVersion 1.0.0
+     * @apiName setInfo
+     * @apiGroup Base
+     *
+     * @apiParam {string} auth_key 登录后验证的key
+     * @apiParam {string} new_pwd 新密码
+     * @apiParam {string} old_pwd 旧密码
+     * 
+     * @apiSuccess {Number} code 返回码 200正确400错误
+     * @apiSuccess {String} data 返回数据
+     * @apiSuccess {String} error 错误信息
+     *
+     * @apiUse commError
+     */
     public function setInfo()
     {
         $userModel = model('User');

@@ -1,16 +1,16 @@
 define({
   "name": "VueThink接口",
   "version": "1.0.0",
-  "description": "学习apidoc",
+  "description": "测试接口(login/logout除外)之前，请先在登录接口做登录",
   "title": "VueThink接口",
   "url": "http://demo.tpvue.com.cn/",
   "sampleUrl": "http://demo.tpvue.com.cn/",
-  "testScript": "apidoc -i ./ -o public/apidoc/ -f '.*/.php'",
+  "testScript": "apidoc -i ./ -o public/apidoc/ -f './*.php'",
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2018-07-06T10:18:57.612Z",
+    "time": "2018-07-10T09:02:36.158Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }
