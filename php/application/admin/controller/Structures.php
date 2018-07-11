@@ -53,6 +53,9 @@ class Structures extends ApiCommon
      * @apiName list
      * @apiGroup Department
      *
+     * @apiHeader {String} authkey Users unique authkey.
+     * @apiHeader {String} sessionid Users unique sessionid.
+     * 
      * @apiSuccessExample Success-Response:
      *  HTTP/1.1 200 OK
         {

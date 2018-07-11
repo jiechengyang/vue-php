@@ -20,11 +20,9 @@ class ApiCommon extends Common
         parent::_initialize();
         /*获取头部信息*/ 
         $header = Request::instance()->header();
-        
         $authKey = $header['authkey'];
         $sessionId = $header['sessionid'];
         $cache = cache('Auth_'.$authKey);
-        
         // 校验sessionid和authKey
         if (empty($sessionId)||empty($authKey)||empty($cache)) {
             header('Content-Type:application/json; charset=utf-8');

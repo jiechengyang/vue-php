@@ -252,6 +252,8 @@ class User extends Common
         $data['userInfo']		= $userInfo;
         $data['authList']		= $dataList['rulesList'];
         $data['menusList']		= $dataList['menusList'];
+        $_SESSION['user'] = $data;
+        
         return $data;
     }
 
@@ -332,6 +334,9 @@ class User extends Common
     		$menuMap['status'] = 1;
             $menuMap['rule_id'] = array('in',$ruleIds);
             $menusList = Db::name('admin_menu')->where($menuMap)->order('sort asc')->select();
+	        // 处理规则成树状
+	        $ret['rulesList'] = $tree->list_to_tree($rules, 'id', 'pid', 'child', 0, true, array('pid'));
+	        $ret['rulesList'] = rulesDeal($ret['rulesList']);
         }
         if (!$menusList) {
             return null;
@@ -340,10 +345,6 @@ class User extends Common
         $tree = new \com\Tree();
         $ret['menusList'] = $tree->list_to_tree($menusList, 'id', 'pid', 'child', 0, true, array('pid'));
         $ret['menusList'] = memuLevelClear($ret['menusList']);
-        // 处理规则成树状
-        $ret['rulesList'] = $tree->list_to_tree($rules, 'id', 'pid', 'child', 0, true, array('pid'));
-        $ret['rulesList'] = rulesDeal($ret['rulesList']);
-
         return $ret;
     }
 }

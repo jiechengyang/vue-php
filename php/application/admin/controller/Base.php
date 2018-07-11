@@ -63,6 +63,13 @@ class Base extends Common
     */
     public function login()
     {   
+        if (!Request::instance()->isOptions()) {
+            session_start();
+            if(!empty($_SESSION['user'])) {
+                return resultArray(['data' => $_SESSION['user']]);
+            }
+        }
+
         $userModel = model('User');
         $param = $this->param;
         $username = $param['username'];
@@ -130,8 +137,12 @@ class Base extends Common
     */
     public function logout()
     {
+        session_start();
         $param = $this->param;
         cache('Auth_'.$param['authkey'], null);
+        $_SESSION['user'] = null;
+        unset($_SESSION['user']);
+
         return resultArray(['data'=>'退出成功']);
     }
 

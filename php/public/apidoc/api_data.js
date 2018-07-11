@@ -994,6 +994,26 @@ define({ "api": [
     "version": "1.0.0",
     "name": "list",
     "group": "Department",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authkey",
+            "description": "<p>Users unique authkey.</p>"
+          },
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "sessionid",
+            "description": "<p>Users unique sessionid.</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
@@ -1538,6 +1558,34 @@ define({ "api": [
         }
       ]
     }
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./apidoc-template/main.js",
+    "group": "E__nodejs_VueThink_php_apidoc_template_main_js",
+    "groupTitle": "E__nodejs_VueThink_php_apidoc_template_main_js",
+    "name": ""
   },
   {
     "success": {
