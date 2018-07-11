@@ -4,4 +4,9 @@
 ```
 请参考frontEnd里的README文件
 ```
+### apidoc命令
+```
+apidoc -i ./ -o ./public/apidoc/ -f './*.php' -t ./apidoc-template/
+官方地址:[APIDOC]http://apidocjs.com/
+```
 
