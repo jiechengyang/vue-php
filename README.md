@@ -7,6 +7,6 @@
 ### apidoc命令
 ```
 apidoc -i ./ -o ./public/apidoc/ -f './*.php' -t ./apidoc-template/
-官方地址:[APIDOC]http://apidocjs.com/
 ```
+官方地址:[APIDOC](http://apidocjs.com/)
 
