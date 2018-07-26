@@ -18,8 +18,9 @@ import 'nprogress/nprogress.css'
 import 'assets/css/global.css'
 import 'assets/css/base.css'
 
-// axios.defaults.baseURL = HOST
-axios.defaults.baseURL = 'http://demo.tpvue.com.cn/index.php/'
+// axios.defaults.baseURL = HOST  index.php
+// 如果nginx配置了反向代理且配置跨域，可将 window.HOST = axios.defaults.baseURL = "/"
+axios.defaults.baseURL = 'http://demo.tpvue.com.cn/'
 axios.defaults.timeout = 1000 * 15
 axios.defaults.headers.authKey = Lockr.get('authKey')
 axios.defaults.headers.sessionId = Lockr.get('sessionId')
@@ -48,8 +49,8 @@ Vue.use(VueRouter)
 
 window.router = router
 window.store = store
-// window.HOST = HOST
-window.HOST = 'http://demo.tpvue.com.cn/index.php/'
+// window.HOST = index.phpHOST
+window.HOST = 'http://demo.tpvue.com.cn/'
 window.axios = axios
 window._ = _
 window.moment = moment

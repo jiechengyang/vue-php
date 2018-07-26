@@ -5,5 +5,5 @@
   "title": "VueThink接口",
   "url": "http://demo.tpvue.com.cn/",
   "sampleUrl": "http://demo.tpvue.com.cn/",
-  "testScript": "apidoc -i ./ -o public/apidoc/ -f './*.php'"
+  "testScript": "apidoc -i ./ -o ./public/apidoc/ -f './*.php' -t ./apidoc-template/"
 }

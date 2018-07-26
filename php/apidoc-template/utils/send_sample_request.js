@@ -97,7 +97,12 @@ define([
       // send AJAX request, catch success or error callback
       globalRequestUrl = url;
       var globalHeader = Cookies.get('globalHeader');
-      globalHeader = JSON.parse(globalHeader);
+      if(globalHeader) {
+        globalHeader = JSON.parse(globalHeader);
+      } else {
+        globalHeader = null;
+      }
+
       if (url.indexOf('admin/base/login') == -1 && globalHeader != null) {
         header['authkey'] = globalHeader.authkey;
         header['sessionid'] = globalHeader.sessionid;
